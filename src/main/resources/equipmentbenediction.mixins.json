@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.xiaohunao.equipmentbenediction.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "equipmentbenediction.refmap.json",
+  "mixins": [
+    "ItemMixin",
+    "ItemStackMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
