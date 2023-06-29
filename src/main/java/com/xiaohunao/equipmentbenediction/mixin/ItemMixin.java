@@ -1,7 +1,5 @@
 package com.xiaohunao.equipmentbenediction.mixin;
 
-
-
 import com.xiaohunao.equipmentbenediction.EquipmentBenediction;
 import com.xiaohunao.equipmentbenediction.data.dao.GlossaryData;
 import com.xiaohunao.equipmentbenediction.data.dao.QualityData;
@@ -27,16 +25,14 @@ public class ItemMixin {
             if (qualityCap.isHasQuality()) return;
             QualityData data = EquipmentBenediction.QUALITY_DATA.getRandomEquipmentQualityData();
             qualityCap.setHasQuality(true);
-            qualityCap.setId(data.getId());
+            qualityCap.setId(data.id());
         });
 
         List<GlossaryData> filteredGlossary = EquipmentBenediction.GLOSSARY_DATA.getFilteredGlossary(stack);
         stack.getCapability(CapabilityRegistry.GLOSSARY).ifPresent(glossaryCap -> {
             if (glossaryCap.isHasGlossary()) return;
             glossaryCap.setHasGlossary(true);
-            filteredGlossary.forEach(glossaryData -> {
-                glossaryCap.addGlossaryID(glossaryData.getId());
-            });
+            filteredGlossary.forEach(glossaryData -> glossaryCap.addGlossaryID(glossaryData.getId()));
         });
     }
 }

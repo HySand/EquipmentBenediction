@@ -11,6 +11,7 @@ import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
@@ -33,7 +34,7 @@ public class QualityDataLoader extends SimpleJsonResourceReloadListener {
         for (Map.Entry<ResourceLocation, JsonElement> entry : loader.entrySet()) {
             try {
                 QualityData qualityData = GSON.fromJson(entry.getValue(), QualityData.class);
-                qualityDataHashMap.put(qualityData.getId(), qualityData);
+                qualityDataHashMap.put(qualityData.id(), qualityData);
             } catch (IllegalArgumentException | JsonParseException exception) {
                 throw new JsonParseException("解析品质Json数据包错误" + entry.getKey(), exception);
             }
@@ -46,7 +47,7 @@ public class QualityDataLoader extends SimpleJsonResourceReloadListener {
     }
 
     public boolean isValid(ItemStack stack) {
-        return isValid(stack.getItem().getRegistryName());
+        return isValid(ForgeRegistries.ITEMS.getKey(stack.getItem()));
     }
 
     public boolean isValid(ResourceLocation id) {
@@ -62,12 +63,12 @@ public class QualityDataLoader extends SimpleJsonResourceReloadListener {
         if (qualityDataHashMap == null) return null;
         double probabilitySum = 0.0;
         for (QualityData equipment : qualityDataHashMap.values()) {
-            probabilitySum += equipment.getChance();
+            probabilitySum += equipment.chance();
         }
         double random = Math.random() * probabilitySum;
         double sum = 0.0;
         for (Map.Entry<String, QualityData> entry : qualityDataHashMap.entrySet()) {
-            sum += entry.getValue().getChance();
+            sum += entry.getValue().chance();
             if (random < sum) {
                 return entry.getValue();
             }

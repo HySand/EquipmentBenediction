@@ -1,5 +1,6 @@
 package com.xiaohunao.equipmentbenediction.attribute;
 
+import com.xiaohunao.equipmentbenediction.EquipmentBenediction;
 import com.xiaohunao.equipmentbenediction.registry.AttributesRegister;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
@@ -8,14 +9,14 @@ import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class LevitationAttackAttribute extends BaseEffectAttribute{
-    public static final String NAME = "generic.levitation_attack";
+    public static final String NAME = "attribute." + EquipmentBenediction.MOD_ID + ".levitation_attack";
     public LevitationAttackAttribute() {
         super(NAME);
     }
 
     @Override
     Attribute getAttribute() {
-        return AttributesRegister.LEVITATION_ATTACK;
+        return AttributesRegister.LEVITATION_ATTACK.get();
     }
 
     @Override

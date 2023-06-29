@@ -15,6 +15,8 @@ import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.registries.ForgeRegistries;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
@@ -31,7 +33,7 @@ public class GlossaryDataLoader extends SimpleJsonResourceReloadListener {
     }
 
     @Override
-    protected void apply(Map<ResourceLocation, JsonElement> p_10793_, ResourceManager p_10794_, ProfilerFiller p_10795_) {
+    protected void apply(Map<ResourceLocation, JsonElement> p_10793_, @NotNull ResourceManager p_10794_, @NotNull ProfilerFiller p_10795_) {
         Map<String, GlossaryData> glossaryDataHashMap = Maps.newHashMap();
         for (Map.Entry<ResourceLocation, JsonElement> entry : p_10793_.entrySet()) {
             try {
@@ -54,14 +56,14 @@ public class GlossaryDataLoader extends SimpleJsonResourceReloadListener {
             String id = qualityCap.getId();
             QualityData qualityData = EquipmentBenediction.QUALITY_DATA.get(id);
 
-            int count = qualityData.getCount();
-            int level = qualityData.getLevel();
+            int count = qualityData.count();
+            int level = qualityData.level();
 
             for (int i = 0; i < count; i++) {
                 glossaryDataList.add(getRandomGlossaryData());
             }
             glossaryDataList.removeIf(glossaryData -> glossaryData.getQuality_level() > level);
-            glossaryDataList.removeIf(glossaryData -> !glossaryData.isValid(stack.getItem().getRegistryName()));
+            glossaryDataList.removeIf(glossaryData -> !glossaryData.isValid(ForgeRegistries.ITEMS.getKey(stack.getItem())));
             filterAttribute(glossaryDataList);
         });
         return glossaryDataList;
@@ -94,7 +96,7 @@ public class GlossaryDataLoader extends SimpleJsonResourceReloadListener {
             List<AttributeData> attributeDataList = glossaryData.getAttribute();
             boolean isDuplicate = false;
             for (AttributeData attributeData : attributeDataList) {
-                String type = attributeData.getType();
+                String type = attributeData.type();
                 if (set.contains(type)) {
                     isDuplicate = true;
                     break;
