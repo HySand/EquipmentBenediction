@@ -14,7 +14,7 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import org.jetbrains.annotations.NotNull;
@@ -44,10 +44,16 @@ public class RecastingDeskContainerMenu extends AbstractContainerMenu {
         addPlayerHotbar(playerInv);
 
 
-        this.blockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(handler -> {
+        this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
             this.addSlot(new InputSlot(handler, 0, 44, 24));
             this.addSlot(new OutputSlot(handler, 1, 44, 59));
         });
+    }
+
+    @Override
+    public @NotNull ItemStack quickMoveStack(@NotNull Player pPlayer, int pIndex) {
+        //TODO
+        return ItemStack.EMPTY;
     }
 
     @Override
@@ -102,9 +108,7 @@ public class RecastingDeskContainerMenu extends AbstractContainerMenu {
             if (stack != null && ItemInFirstSlot != null) {
                 ItemInFirstSlot.getCapability(CapabilityRegistry.QUALITY).ifPresent(cap -> {
                     QualityData qualityData = EquipmentBenediction.QUALITY_DATA.get(cap.getId());
-                    qualityData.getRecastingRequirement().forEach(recastingRequirement -> {
-                        valid.set(recastingRequirement.isValid(stack));
-                    });
+                    qualityData.recastingRequirement().forEach(recastingRequirement -> valid.set(recastingRequirement.isValid(stack)));
                 });
             }
             return valid.get();
