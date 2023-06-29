@@ -7,10 +7,7 @@ import com.xiaohunao.equipmentbenediction.attribute.WitherAttackAttribute;
 import com.xiaohunao.equipmentbenediction.data.GlossaryDataLoader;
 import com.xiaohunao.equipmentbenediction.data.QualityDataLoader;
 import com.xiaohunao.equipmentbenediction.network.EquipmentQualityPacketHandler;
-import com.xiaohunao.equipmentbenediction.registry.BlockEntityRegistry;
-import com.xiaohunao.equipmentbenediction.registry.BlockRegistry;
-import com.xiaohunao.equipmentbenediction.registry.ItemRegistry;
-import com.xiaohunao.equipmentbenediction.registry.MenuTypeRegistry;
+import com.xiaohunao.equipmentbenediction.registry.*;
 import com.xiaohunao.equipmentbenediction.screen.RecastingDeskScreen;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.resources.ResourceLocation;
@@ -36,6 +33,7 @@ public class EquipmentBenediction {
         eventBus.addListener(this::setup);
         eventBus.addListener(this::clientSetup);
 
+        AttributesRegister.register(eventBus);
         BlockRegistry.register(eventBus);
         ItemRegistry.register(eventBus);
         BlockEntityRegistry.register(eventBus);

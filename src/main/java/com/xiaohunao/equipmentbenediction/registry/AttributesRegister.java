@@ -3,12 +3,11 @@ package com.xiaohunao.equipmentbenediction.registry;
 import com.xiaohunao.equipmentbenediction.EquipmentBenediction;
 import com.xiaohunao.equipmentbenediction.attribute.*;
 import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class AttributesRegister {
     public static final DeferredRegister<Attribute> ATTRIBUTES = DeferredRegister.create(ForgeRegistries.ATTRIBUTES, EquipmentBenediction.MOD_ID);
 
@@ -24,4 +23,7 @@ public class AttributesRegister {
     public static final RegistryObject<Attribute> WITHER_ATTACK = ATTRIBUTES.register("wither_attack", WitherAttackAttribute::new);
     public static final RegistryObject<Attribute>  LEVITATION_ATTACK = ATTRIBUTES.register("levitation_attack", LevitationAttackAttribute::new);
 
+    public static void register(IEventBus eventBus) {
+        ATTRIBUTES.register(eventBus);
+    }
 }
