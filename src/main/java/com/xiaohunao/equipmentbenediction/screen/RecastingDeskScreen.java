@@ -79,8 +79,7 @@ public class RecastingDeskScreen extends AbstractContainerScreen<RecastingDeskCo
                     QualityData qualityData = EquipmentBenediction.QUALITY_DATA.get(cap.getId());
                     for (RecastingRequirement recastingRequirement : qualityData.getRecastingRequirement()) {
                         boolean completeValid = recastingRequirement.isCompleteValid(stack);
-                        boolean valid = qualityData.isValid(stack);
-                        if (completeValid && valid) {
+                        if (completeValid) {
                             boolean hasQuality = cap.isHasQuality();
                             String id = EquipmentBenediction.QUALITY_DATA.getRandomEquipmentQualityData().getId();
                             EquipmentQualityPacketHandler.INSTANCE.sendToServer(new QualitySyncMessage(id, hasQuality));
