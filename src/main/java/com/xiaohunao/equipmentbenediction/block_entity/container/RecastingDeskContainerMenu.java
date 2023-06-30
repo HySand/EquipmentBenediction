@@ -52,7 +52,6 @@ public class RecastingDeskContainerMenu extends AbstractContainerMenu {
 
     @Override
     public @NotNull ItemStack quickMoveStack(@NotNull Player pPlayer, int pIndex) {
-        //TODO
         return ItemStack.EMPTY;
     }
 
@@ -108,7 +107,9 @@ public class RecastingDeskContainerMenu extends AbstractContainerMenu {
             if (stack != null && ItemInFirstSlot != null) {
                 ItemInFirstSlot.getCapability(CapabilityRegistry.QUALITY).ifPresent(cap -> {
                     QualityData qualityData = EquipmentBenediction.QUALITY_DATA.get(cap.getId());
-                    qualityData.getRecastingRequirement().forEach(recastingRequirement -> valid.set(recastingRequirement.isValid(stack)));
+                    qualityData.getRecastingRequirement().forEach(recastingRequirement -> {
+                        valid.set(recastingRequirement.isValid(stack));
+                    });
                 });
             }
             return valid.get();

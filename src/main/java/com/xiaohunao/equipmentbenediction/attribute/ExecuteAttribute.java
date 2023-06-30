@@ -1,6 +1,5 @@
 package com.xiaohunao.equipmentbenediction.attribute;
 
-import com.xiaohunao.equipmentbenediction.EquipmentBenediction;
 import com.xiaohunao.equipmentbenediction.registry.AttributesRegister;
 import com.xiaohunao.equipmentbenediction.util.AttributeUtil;
 import net.minecraft.world.damagesource.DamageSource;
@@ -12,7 +11,7 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber
 public class ExecuteAttribute extends BaseAttribute {
-    public static final String NAME = "attribute." + EquipmentBenediction.MOD_ID + ".execute";
+    public static final String NAME = "generic.execute";
 
     public ExecuteAttribute() {
         super(NAME);

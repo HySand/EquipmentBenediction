@@ -34,10 +34,10 @@ public class Modifier {
     @Override
     public String toString() {
         return "Modifier{" +
-                "name='" + name + '\'' +
-                ", amount=" + amount +
-                ", operation=" + operation +
-                ", uuid=" + uuid +
+                "name='" + getName() + '\'' +
+                ", amount=" + getAmount() +
+                ", operation=" + getOperation() +
+                ", uuid=" + getUUID() +
                 '}';
     }
 }

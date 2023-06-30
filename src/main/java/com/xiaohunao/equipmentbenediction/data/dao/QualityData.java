@@ -81,12 +81,12 @@ public class QualityData {
     @Override
     public String toString() {
         return "EquipmentQualityData{" +
-                "id='" + getId() + '\'' +
-                ", verifiers=" + getVerifiers() +
-                ", color='" + getColor() + '\'' +
-                ", chance=" + getChance() +
-                ", level=" + getLevel() +
-                ", count=" + getCount() +
+                "id='" + id + '\'' +
+                ", verifiers=" + verifiers +
+                ", color='" + color + '\'' +
+                ", chance=" + chance +
+                ", level=" + level +
+                ", count=" + count +
                 '}';
     }
 }

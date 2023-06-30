@@ -31,7 +31,7 @@ public class RecastingDeskScreen extends AbstractContainerScreen<RecastingDeskCo
     }
 
     @Override
-    protected void renderBg(@NotNull PoseStack pPoseStack, float pPartialTick, int pMouseX, int pMouseY) {
+    protected void renderBg(PoseStack pPoseStack, float pPartialTick, int pMouseX, int pMouseY) {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, TEXTURE);
@@ -39,7 +39,7 @@ public class RecastingDeskScreen extends AbstractContainerScreen<RecastingDeskCo
     }
 
     @Override
-    public void render(@NotNull PoseStack pPoseStack, int mouseX, int mouseY, float delta) {
+    public void render(PoseStack pPoseStack, int mouseX, int mouseY, float delta) {
         renderBackground(pPoseStack);
         super.render(pPoseStack, mouseX, mouseY, delta);
         renderTooltip(pPoseStack, mouseX, mouseY);
@@ -48,7 +48,8 @@ public class RecastingDeskScreen extends AbstractContainerScreen<RecastingDeskCo
     @Override
     protected void init() {
         super.init();
-        addRenderableWidget(new RecastingButton(leftPos + 80, topPos + 39, 16, 16, MutableComponent.create(new TranslatableContents("equipmentquality.recasting_desk_gui.recasting"))));
+        addRenderableWidget(new RecastingButton(leftPos + 80, topPos + 39, 16, 16,
+                MutableComponent.create(new TranslatableContents("equipmentquality.recasting_desk_gui.recasting"))));
     }
 
     private class RecastingButton extends Button {
@@ -57,7 +58,7 @@ public class RecastingDeskScreen extends AbstractContainerScreen<RecastingDeskCo
         }
 
         @Override
-        public void renderButton(@NotNull PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+        public void renderButton(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
             if (isPressed)
                 blit(matrixStack, x, y, 21, 167, 19, 19, 256, 256);
@@ -79,7 +80,8 @@ public class RecastingDeskScreen extends AbstractContainerScreen<RecastingDeskCo
                     QualityData qualityData = EquipmentBenediction.QUALITY_DATA.get(cap.getId());
                     for (RecastingRequirement recastingRequirement : qualityData.getRecastingRequirement()) {
                         boolean completeValid = recastingRequirement.isCompleteValid(stack);
-                        if (completeValid) {
+                        boolean valid = qualityData.isValid(stack);
+                        if (completeValid && valid) {
                             boolean hasQuality = cap.isHasQuality();
                             String id = EquipmentBenediction.QUALITY_DATA.getRandomEquipmentQualityData().getId();
                             EquipmentQualityPacketHandler.INSTANCE.sendToServer(new QualitySyncMessage(id, hasQuality));

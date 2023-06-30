@@ -57,9 +57,9 @@ public class AttributeData {
     @Override
     public String toString() {
         return "AttributeData{" +
-                "type='" + type + '\'' +
-                ", modifier=" + modifier +
-                ", slots=" + slots +
+                "type='" + getType() + '\'' +
+                ", modifier=" + getModifier() +
+                ", slots=" + getSlots() +
                 '}';
     }
 }

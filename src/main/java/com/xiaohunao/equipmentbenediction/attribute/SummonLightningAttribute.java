@@ -1,6 +1,5 @@
 package com.xiaohunao.equipmentbenediction.attribute;
 
-import com.xiaohunao.equipmentbenediction.EquipmentBenediction;
 import com.xiaohunao.equipmentbenediction.registry.AttributesRegister;
 import com.xiaohunao.equipmentbenediction.util.AttributeUtil;
 import net.minecraft.core.BlockPos;
@@ -16,7 +15,7 @@ import java.util.Random;
 
 @Mod.EventBusSubscriber
 public class SummonLightningAttribute extends BaseAttribute {
-    public static final String NAME = "attribute." + EquipmentBenediction.MOD_ID + ".summon_lightning";
+    public static final String NAME = "generic.summon_lightning";
 
     public SummonLightningAttribute() {
         super(NAME);
@@ -37,6 +36,7 @@ public class SummonLightningAttribute extends BaseAttribute {
                 LightningBolt lightningBolt = EntityType.LIGHTNING_BOLT.create(entityLiving.level);
                 if (lightningBolt != null) {
                     lightningBolt.setPos(pos.getX(), pos.getY(), pos.getZ());
+                    ;
                     entityLiving.level.addFreshEntity(lightningBolt);
                 }
             }

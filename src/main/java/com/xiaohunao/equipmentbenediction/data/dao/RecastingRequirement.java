@@ -27,8 +27,11 @@ public class RecastingRequirement {
         int count = stack.getCount();
         ResourceLocation name = ForgeRegistries.ITEMS.getKey(stack.getItem());
         for (ItemVerifier verifier : verifiers) {
+            System.out.println("isCompleteValid name : " + name);
             if (verifier.isValid(name)) {
-                if (count >= this.count) {
+                boolean b = count >= this.count;
+                System.out.println("isCompleteValid  count: " + b);
+                if (b) {
                     return true;
                 }
             }

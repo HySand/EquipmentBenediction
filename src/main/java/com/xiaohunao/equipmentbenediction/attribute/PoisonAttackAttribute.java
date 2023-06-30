@@ -1,7 +1,6 @@
 package com.xiaohunao.equipmentbenediction.attribute;
 
 
-import com.xiaohunao.equipmentbenediction.EquipmentBenediction;
 import com.xiaohunao.equipmentbenediction.registry.AttributesRegister;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
@@ -11,7 +10,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 
 public class PoisonAttackAttribute extends BaseEffectAttribute{
-    public static final String NAME = "attribute." + EquipmentBenediction.MOD_ID + ".attack_poison";
+    public static final String NAME = "generic.poison_attack";
     public PoisonAttackAttribute() {
         super(NAME);
     }

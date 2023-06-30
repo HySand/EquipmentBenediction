@@ -1,6 +1,5 @@
 package com.xiaohunao.equipmentbenediction.attribute;
 
-import com.xiaohunao.equipmentbenediction.EquipmentBenediction;
 import com.xiaohunao.equipmentbenediction.registry.AttributesRegister;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
@@ -9,7 +8,7 @@ import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class WitherAttackAttribute extends BaseEffectAttribute {
-    public static final String NAME = "attribute." + EquipmentBenediction.MOD_ID + ".wither_attack";
+    public static final String NAME = "generic.wither_attack";
 
     public WitherAttackAttribute() {
         super(NAME);
