@@ -36,7 +36,6 @@ public class SummonLightningAttribute extends BaseAttribute {
                 LightningBolt lightningBolt = EntityType.LIGHTNING_BOLT.create(entityLiving.level);
                 if (lightningBolt != null) {
                     lightningBolt.setPos(pos.getX(), pos.getY(), pos.getZ());
-                    ;
                     entityLiving.level.addFreshEntity(lightningBolt);
                 }
             }

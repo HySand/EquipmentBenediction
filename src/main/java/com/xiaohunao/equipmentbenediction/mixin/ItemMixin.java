@@ -34,9 +34,7 @@ public class ItemMixin {
         stack.getCapability(CapabilityRegistry.GLOSSARY).ifPresent(glossaryCap -> {
             if (glossaryCap.isHasGlossary()) return;
             glossaryCap.setHasGlossary(true);
-            filteredGlossary.forEach(glossaryData -> {
-                glossaryCap.addGlossaryID(glossaryData.getId());
-            });
+            filteredGlossary.forEach(glossaryData -> glossaryCap.addGlossaryID(glossaryData.getId()));
         });
     }
 }

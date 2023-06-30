@@ -44,7 +44,7 @@ public class RecastingDeskBlockEntity extends BlockEntity implements MenuProvide
 
     @Nullable
     @Override
-    public AbstractContainerMenu createMenu(int windowId, Inventory inventory, Player player) {
+    public AbstractContainerMenu createMenu(int windowId, @NotNull Inventory inventory, @NotNull Player player) {
         return new RecastingDeskContainerMenu(windowId, inventory, this);
     }
 
@@ -77,7 +77,7 @@ public class RecastingDeskBlockEntity extends BlockEntity implements MenuProvide
     }
 
     @Override
-    public void load(CompoundTag nbt) {
+    public void load(@NotNull CompoundTag nbt) {
         super.load(nbt);
         itemHandler.deserializeNBT(nbt.getCompound("inventory"));
     }

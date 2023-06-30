@@ -30,11 +30,7 @@ public class ItemStackMixin {
     private void modifyAttributeModifiers(EquipmentSlot slot, CallbackInfoReturnable<Multimap<Attribute, AttributeModifier>> info) {
         Multimap<Attribute, AttributeModifier> map = info.getReturnValue();
         LinkedListMultimap<Attribute, AttributeModifier> newMap = LinkedListMultimap.create();
-        map.asMap().forEach((attribute, modifiers) -> {
-            modifiers.forEach(modifier -> {
-                newMap.put(attribute, modifier);
-            });
-        });
+        map.asMap().forEach((attribute, modifiers) -> modifiers.forEach(modifier -> newMap.put(attribute, modifier)));
 
         ItemStack stack = (ItemStack) (Object) this;
 

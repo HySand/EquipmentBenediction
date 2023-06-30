@@ -26,8 +26,9 @@ public class RecastingDeskBlock extends Block implements EntityBlock {
         return new RecastingDeskBlockEntity(pos, state);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
-    public InteractionResult use(@NotNull BlockState blockState, Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult blockHitResult) {
+    public @NotNull InteractionResult use(@NotNull BlockState blockState, Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult blockHitResult) {
         if (!level.isClientSide()) {
             BlockEntity entity = level.getBlockEntity(pos);
             if (entity instanceof RecastingDeskBlockEntity blockEntity && player instanceof ServerPlayer serverPlayer) {

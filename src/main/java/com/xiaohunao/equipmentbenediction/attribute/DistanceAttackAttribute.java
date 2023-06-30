@@ -33,9 +33,9 @@ public class DistanceAttackAttribute {
             float value = AttributeUtil.getAttributeValue(attack, attributeName);
             float maxAttack = maxHealth * value;
             double damage = 0;
-            if (attributeName.equals(AttributesRegister.NIGH_DISTANCE_ATTACK)) {
+            if (attributeName.equals(AttributesRegister.NIGH_DISTANCE_ATTACK.get())) {
                 damage = maxAttack * (1 - distance / 10);
-            } else if (attributeName.equals(AttributesRegister.FAR_DISTANCE_ATTACK)) {
+            } else if (attributeName.equals(AttributesRegister.FAR_DISTANCE_ATTACK.get())) {
                 damage = maxAttack * distance / 10;
             }
             target.hurt(DamageSource.GENERIC, (float) damage);

@@ -1,6 +1,5 @@
 package com.xiaohunao.equipmentbenediction;
 
-import com.mojang.logging.LogUtils;
 import com.xiaohunao.equipmentbenediction.attribute.LevitationAttackAttribute;
 import com.xiaohunao.equipmentbenediction.attribute.PoisonAttackAttribute;
 import com.xiaohunao.equipmentbenediction.attribute.SlownessAttackAttribute;
@@ -21,15 +20,13 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import org.slf4j.Logger;
+import org.jetbrains.annotations.NotNull;
 
 @Mod(EquipmentBenediction.MOD_ID)
 public class EquipmentBenediction {
     public static final String MOD_ID = "equipmentbenediction";
     public static final QualityDataLoader QUALITY_DATA = new QualityDataLoader();
     public static final GlossaryDataLoader GLOSSARY_DATA = new GlossaryDataLoader();
-    private static final Logger LOGGER = LogUtils.getLogger();
-
     public EquipmentBenediction() {
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
         eventBus.addListener(this::setup);
@@ -48,7 +45,7 @@ public class EquipmentBenediction {
 
     public static final CreativeModeTab EQUIPMENT_QUALITY_TAB = new CreativeModeTab("equipmentquality") {
         @Override
-        public ItemStack makeIcon() {
+        public @NotNull ItemStack makeIcon() {
             return new ItemStack(BlockRegistry.RECASTING_DESK.get());
         }
     };
