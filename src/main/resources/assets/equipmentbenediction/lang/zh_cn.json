@@ -1,5 +1,6 @@
 {
   "container.recasting_desk": "重铸桌",
   "block.equipmentbenediction.recasting_desk": "重铸桌",
-  "equipmentquality.recasting_desk_gui.recasting": "重铸"
+  "equipmentquality.recasting_desk_gui.recasting": "重铸",
+  "equipmentquality.quality.desc": "品质"
 }
