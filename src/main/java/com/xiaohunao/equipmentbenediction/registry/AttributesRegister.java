@@ -14,7 +14,7 @@ public class AttributesRegister {
     public static final RegistryObject<Attribute> EXECUTE = ATTRIBUTES.register("generic.execute", ExecuteAttribute::new);
     public static final RegistryObject<Attribute> BOW_SPEED = ATTRIBUTES.register("generic.bow_speed", BowSpeedAttribute::new);
     public static final RegistryObject<Attribute> BOW_MOVEMENT_SPEED = ATTRIBUTES.register("generic.bow_movement_speed", BowMovementSpeedAttribute::new);
-    public static final RegistryObject<Attribute> ABSORB_BLOOD = ATTRIBUTES.register("generic.absorb_blood", BowMovementSpeedAttribute::new);
+    public static final RegistryObject<Attribute> ABSORB_BLOOD = ATTRIBUTES.register("generic.absorb_blood", AbsorbBloodAttribute::new);
     public static final RegistryObject<Attribute> SUMMON_LIGHTNING = ATTRIBUTES.register("generic.summon_lightning", SummonLightningAttribute::new);
     public static final RegistryObject<Attribute> ATTACK_POISON = ATTRIBUTES.register("generic.attack_poison", PoisonAttackAttribute::new);
     public static final RegistryObject<Attribute> FAR_DISTANCE_ATTACK = ATTRIBUTES.register("generic.far_distance_attack", DistanceAttackAttribute.Far::new);
