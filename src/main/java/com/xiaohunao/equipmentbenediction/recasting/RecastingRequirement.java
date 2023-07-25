@@ -1,5 +1,6 @@
-package com.xiaohunao.equipmentbenediction.data.dao;
+package com.xiaohunao.equipmentbenediction.recasting;
 
+import com.xiaohunao.equipmentbenediction.data.dao.ItemVerifier;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -26,25 +27,10 @@ public class RecastingRequirement {
     public boolean isCompleteValid(ItemStack stack) {
         int count = stack.getCount();
         ResourceLocation name = ForgeRegistries.ITEMS.getKey(stack.getItem());
-        for (ItemVerifier verifier : verifiers) {
-            System.out.println("isCompleteValid name : " + name);
-            if (verifier.isValid(name)) {
-                boolean b = count >= this.count;
-                System.out.println("isCompleteValid  count: " + b);
-                if (b) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        return verifiers.stream().anyMatch(itemVerifier -> itemVerifier.isValid(name)) && count >= this.count;
     }
 
     public boolean isValid(ItemStack stack) {
-        for (ItemVerifier verifier : verifiers) {
-            if (verifier.isValid(ForgeRegistries.ITEMS.getKey(stack.getItem()))) {
-                return true;
-            }
-        }
-        return false;
+        return verifiers.stream().anyMatch(itemVerifier -> itemVerifier.isValid(ForgeRegistries.ITEMS.getKey(stack.getItem())));
     }
 }

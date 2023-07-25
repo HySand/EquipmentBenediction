@@ -1,10 +1,9 @@
-package com.xiaohunao.equipmentbenediction.block_entity.container;
+package com.xiaohunao.equipmentbenediction.recasting;
 
-import com.xiaohunao.equipmentbenediction.EquipmentBenediction;
+import com.xiaohunao.equipmentbenediction.data.QualityDataLoader;
 import com.xiaohunao.equipmentbenediction.data.dao.QualityData;
-import com.xiaohunao.equipmentbenediction.registry.BlockRegistry;
 import com.xiaohunao.equipmentbenediction.registry.CapabilityRegistry;
-import com.xiaohunao.equipmentbenediction.registry.MenuTypeRegistry;
+import com.xiaohunao.equipmentbenediction.registry.RecastingRegistry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -15,6 +14,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import org.jetbrains.annotations.NotNull;
@@ -34,7 +34,7 @@ public class RecastingDeskContainerMenu extends AbstractContainerMenu {
     }
 
     public RecastingDeskContainerMenu(int windowId, Inventory playerInv, BlockEntity blockEntity) {
-        super(MenuTypeRegistry.RECASTING_DESK.get(), windowId);
+        super(RecastingRegistry.RECASTING_DESK_MENU.get(), windowId);
         this.playerInv = playerInv;
         this.blockEntity = blockEntity;
         this.level = playerInv.player.level;
@@ -51,13 +51,13 @@ public class RecastingDeskContainerMenu extends AbstractContainerMenu {
     }
 
     @Override
-    public @NotNull ItemStack quickMoveStack(@NotNull Player pPlayer, int pIndex) {
+    public ItemStack quickMoveStack(@NotNull Player p_38941_, int p_38942_) {
         return ItemStack.EMPTY;
     }
 
     @Override
     public boolean stillValid(@NotNull Player player) {
-        return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()), player, BlockRegistry.RECASTING_DESK.get());
+        return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()), player, RecastingRegistry.RECASTING_DESK_BLOCK.get());
     }
 
     private void addPlayerInventory(Inventory playerInventory) {
@@ -83,7 +83,7 @@ public class RecastingDeskContainerMenu extends AbstractContainerMenu {
         @Override
         public boolean mayPlace(@Nullable ItemStack stack) {
             if (stack != null) {
-                return EquipmentBenediction.QUALITY_DATA.isValid(stack);
+                return QualityDataLoader.isValid(stack);
             }
             return false;
         }
@@ -106,7 +106,7 @@ public class RecastingDeskContainerMenu extends AbstractContainerMenu {
             AtomicBoolean valid = new AtomicBoolean(false);
             if (stack != null && ItemInFirstSlot != null) {
                 ItemInFirstSlot.getCapability(CapabilityRegistry.QUALITY).ifPresent(cap -> {
-                    QualityData qualityData = EquipmentBenediction.QUALITY_DATA.get(cap.getId());
+                    QualityData qualityData = QualityDataLoader.QUALITY_DATA_MAP.get(cap.getId());
                     qualityData.getRecastingRequirement().forEach(recastingRequirement -> valid.set(recastingRequirement.isValid(stack)));
                 });
             }

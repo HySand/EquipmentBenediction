@@ -1,12 +1,10 @@
-package com.xiaohunao.equipmentbenediction.screen;
+package com.xiaohunao.equipmentbenediction.recasting;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.xiaohunao.equipmentbenediction.EquipmentBenediction;
-import com.xiaohunao.equipmentbenediction.block_entity.RecastingDeskBlockEntity;
-import com.xiaohunao.equipmentbenediction.block_entity.container.RecastingDeskContainerMenu;
+import com.xiaohunao.equipmentbenediction.data.QualityDataLoader;
 import com.xiaohunao.equipmentbenediction.data.dao.QualityData;
-import com.xiaohunao.equipmentbenediction.data.dao.RecastingRequirement;
 import com.xiaohunao.equipmentbenediction.network.EquipmentQualityPacketHandler;
 import com.xiaohunao.equipmentbenediction.network.message.QualitySyncMessage;
 import com.xiaohunao.equipmentbenediction.registry.CapabilityRegistry;
@@ -14,13 +12,13 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 public class RecastingDeskScreen extends AbstractContainerScreen<RecastingDeskContainerMenu> {
     private static final ResourceLocation TEXTURE = new ResourceLocation(EquipmentBenediction.MOD_ID, "textures/gui/recasting_desk_gui.png");
@@ -48,8 +46,7 @@ public class RecastingDeskScreen extends AbstractContainerScreen<RecastingDeskCo
     @Override
     protected void init() {
         super.init();
-        addRenderableWidget(new RecastingButton(leftPos + 80, topPos + 39, 16, 16,
-                MutableComponent.create(new TranslatableContents("equipmentquality.recasting_desk_gui.recasting"))));
+        addRenderableWidget(new RecastingButton(leftPos + 80, topPos + 39, 16, 16, Component.translatable("equipmentquality.recasting_desk_gui.recasting")));
     }
 
     private class RecastingButton extends Button {
@@ -77,13 +74,10 @@ public class RecastingDeskScreen extends AbstractContainerScreen<RecastingDeskCo
                 ItemStack equipmentStack = itemHandler.getStackInSlot(0);
                 ItemStack stack = itemHandler.getStackInSlot(1);
                 equipmentStack.getCapability(CapabilityRegistry.QUALITY).ifPresent(cap -> {
-                    QualityData qualityData = EquipmentBenediction.QUALITY_DATA.get(cap.getId());
+                    QualityData qualityData = QualityDataLoader.QUALITY_DATA_MAP.get(cap.getId());
                     for (RecastingRequirement recastingRequirement : qualityData.getRecastingRequirement()) {
-                        boolean completeValid = recastingRequirement.isCompleteValid(stack);
-                        if (completeValid) {
-                            boolean hasQuality = cap.isHasQuality();
-                            String id = EquipmentBenediction.QUALITY_DATA.getRandomEquipmentQualityData().getId();
-                            EquipmentQualityPacketHandler.INSTANCE.sendToServer(new QualitySyncMessage(id, hasQuality));
+                        if (recastingRequirement.isCompleteValid(stack)) {
+                            EquipmentQualityPacketHandler.INSTANCE.sendToServer(new QualitySyncMessage((QualityDataLoader.getRandomQuality()).getId(), cap.isHasQuality()));
                         }
                     }
                 });

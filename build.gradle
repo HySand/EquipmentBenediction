@@ -14,7 +14,7 @@ apply plugin: 'maven-publish'
 apply plugin: 'org.spongepowered.mixin'
 
 group = 'com.xiaohunao'
-version = '1.19.2-0.0.2'
+version = '1.19.2-0.0.3'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 

@@ -1,13 +1,10 @@
-package com.xiaohunao.equipmentbenediction.block_entity;
+package com.xiaohunao.equipmentbenediction.recasting;
 
-import com.xiaohunao.equipmentbenediction.block_entity.container.RecastingDeskContainerMenu;
-import com.xiaohunao.equipmentbenediction.registry.BlockEntityRegistry;
+import com.xiaohunao.equipmentbenediction.registry.RecastingRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -33,13 +30,14 @@ public class RecastingDeskBlockEntity extends BlockEntity implements MenuProvide
     };
     private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
     public RecastingDeskBlockEntity(BlockPos p_155229_, BlockState p_155230_) {
-        super(BlockEntityRegistry.RECASTING_DESK_BLOCK_ENTITY.get(), p_155229_, p_155230_);
+        super(RecastingRegistry.RECASTING_DESK_BLOCK_ENTITY.get(), p_155229_, p_155230_);
     }
 
 
     @Override
-    public @NotNull Component getDisplayName() {
-        return MutableComponent.create(new TranslatableContents("container.recasting_desk"));
+    @NotNull
+    public Component getDisplayName() {
+        return Component.translatable("container.recasting_desk");
     }
 
     @Nullable
