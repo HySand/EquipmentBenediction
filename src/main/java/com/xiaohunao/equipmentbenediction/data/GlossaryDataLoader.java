@@ -61,7 +61,6 @@ public class GlossaryDataLoader extends SimpleJsonResourceReloadListener {
                     return Stream.generate(GlossaryDataLoader::getRandomGlossaryData)
                             .distinct()
                             .limit(count)
-                            .filter(glossaryData -> glossaryData.getQuality_level() <= level)
                             .filter(glossaryData -> glossaryData.isValid(ForgeRegistries.ITEMS.getKey(stack.getItem())))
                             .collect(Collectors.toList());
                 })
@@ -69,7 +68,9 @@ public class GlossaryDataLoader extends SimpleJsonResourceReloadListener {
     }
 
     public static GlossaryData getRandomGlossaryData() {
-        List<GlossaryData> glossaryDataList = new ArrayList<>(GLOSSARY_DATA_MAP.values());
+        List<GlossaryData> glossaryDataList = GLOSSARY_DATA_MAP.values().stream()
+                .filter(glossaryData -> glossaryData.getQuality_level() <= level)
+                .toList();
         double totalWeight = glossaryDataList.stream()
                 .mapToDouble(GlossaryData::getChance)
                 .sum();
