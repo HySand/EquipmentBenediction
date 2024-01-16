@@ -14,7 +14,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -58,7 +57,7 @@ public class GlossaryDataLoader extends SimpleJsonResourceReloadListener {
                     int count = qualityData.getCount();
                     int level = qualityData.getLevel();
 
-                    return Stream.generate(GlossaryDataLoader::getRandomGlossaryData)
+                    return Stream.generate(() -> GlossaryDataLoader.getRandomGlossaryData(level))
                             .distinct()
                             .limit(count)
                             .filter(glossaryData -> glossaryData.isValid(ForgeRegistries.ITEMS.getKey(stack.getItem())))
@@ -67,7 +66,7 @@ public class GlossaryDataLoader extends SimpleJsonResourceReloadListener {
                 .orElse(Collections.emptyList());
     }
 
-    public static GlossaryData getRandomGlossaryData() {
+    public static GlossaryData getRandomGlossaryData(int level) {
         List<GlossaryData> glossaryDataList = GLOSSARY_DATA_MAP.values().stream()
                 .filter(glossaryData -> glossaryData.getQuality_level() <= level)
                 .toList();
